@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -71,6 +72,9 @@ public class MainActivity extends AppCompatActivity {
 
             } catch (Exception e) {
                 e.printStackTrace();
+
+                Toast.makeText(getApplicationContext(), "Could not find weather:(", Toast.LENGTH_SHORT).show();
+
                 return null;
             }
 
@@ -98,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
 
                     if (!main.equals("") && !desc.equals("")){
                         message += main + ": " + desc + "\r\n";
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Could not find weather:(", Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -107,6 +113,9 @@ public class MainActivity extends AppCompatActivity {
 
             } catch (Exception e) {
                 e.printStackTrace();
+
+                Toast.makeText(getApplicationContext(), "Could not find weather:(", Toast.LENGTH_SHORT).show();
+
             }
 
 
