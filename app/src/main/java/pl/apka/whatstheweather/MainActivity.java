@@ -18,6 +18,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,14 +37,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getWeather(View view){
-        String city = editText.getText().toString();
+        try {
+            String city = editText.getText().toString();
+            String encodedCityName = URLEncoder.encode(city, "UTF-8");
+            DownloadTask task = new DownloadTask();
+            task.execute("https://openweathermap.org/data/2.5/weather?q=" + encodedCityName + "&appid=b6907d289e10d714a6e88b30761fae22");
 
-        DownloadTask task = new DownloadTask();
-        task.execute("https://openweathermap.org/data/2.5/weather?q="+city+"&appid=b6907d289e10d714a6e88b30761fae22");
-
-        InputMethodManager manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        manager.hideSoftInputFromWindow(editText.getWindowToken(),0);
-
+            InputMethodManager manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            manager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "Could not find weather:(", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public class DownloadTask extends AsyncTask<String, Void, String> {
