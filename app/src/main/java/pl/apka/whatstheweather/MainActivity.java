@@ -93,7 +93,9 @@ public class MainActivity extends AppCompatActivity {
 
                 String weatherInfo = jsonObject.getString("weather");
 
-                Log.i("Weather content", weatherInfo);
+                String mainInfo = jsonObject.getString("main");
+
+                JSONObject mainInfoObject = jsonObject.getJSONObject("main");
 
                 JSONArray arr = new JSONArray(weatherInfo);
 
@@ -110,6 +112,11 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         Toast.makeText(getApplicationContext(), "Could not find weather:(", Toast.LENGTH_SHORT).show();
                     }
+                }
+
+                if (!mainInfo.equals("")) {
+                    String temperature = mainInfoObject.getString("temp");
+                    message +=  "Temperature: "+ temperature+ " degrees" +"\r\n";
                 }
 
                 if (!message.equals("")) {
