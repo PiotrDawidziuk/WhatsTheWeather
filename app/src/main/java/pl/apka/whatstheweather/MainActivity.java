@@ -1,10 +1,12 @@
 package pl.apka.whatstheweather;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -33,11 +35,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getWeather(View view){
-
         String city = editText.getText().toString();
 
         DownloadTask task = new DownloadTask();
         task.execute("https://openweathermap.org/data/2.5/weather?q="+city+"&appid=b6907d289e10d714a6e88b30761fae22");
+
+        InputMethodManager manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        manager.hideSoftInputFromWindow(editText.getWindowToken(),0);
+
     }
 
     public class DownloadTask extends AsyncTask<String, Void, String> {
