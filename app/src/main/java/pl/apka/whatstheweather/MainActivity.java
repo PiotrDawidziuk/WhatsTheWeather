@@ -101,6 +101,17 @@ public class MainActivity extends AppCompatActivity {
 
                 String message = "";
 
+                if (!mainInfo.equals("")) {
+                    String temperature = mainInfoObject.getString("temp");
+                    message +=  "Temperature: "+ temperature+ " degrees" +"\r\n";
+
+                    String pressure = mainInfoObject.getString("pressure");
+                    message +=  "Pressure: "+ pressure + " hPa" +"\r\n";
+
+                    String humidity = mainInfoObject.getString("humidity");
+                    message +=  "Humidity: "+ humidity + " %" +"\r\n";
+                }
+
                 for (int i = 0; i < arr.length(); i++){
                     JSONObject jsonPart = arr.getJSONObject(i);
 
@@ -114,10 +125,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
 
-                if (!mainInfo.equals("")) {
-                    String temperature = mainInfoObject.getString("temp");
-                    message +=  "Temperature: "+ temperature+ " degrees" +"\r\n";
-                }
 
                 if (!message.equals("")) {
                     resultTextView.setText(message);
